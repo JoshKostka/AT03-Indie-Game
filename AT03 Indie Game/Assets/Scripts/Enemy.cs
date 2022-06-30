@@ -77,6 +77,7 @@ public class Enemy : FiniteStateMachine, IInteractable
         {
             ForceChaseTarget = true;
             SetState(chaseState);
+            Debug.Log("FORCE CHASE TURNED ON - CHASING PLAYER");
         }
     }
 }
@@ -186,7 +187,7 @@ public class EnemyWanderState : EnemyBehaviourState
             (
 
             Random.Range(-Instance.bounds.extents.x, Instance.bounds.extents.x),
-            Instance.transform.position.y,
+            Instance.bounds.extents.y,
             Random.Range(-Instance.bounds.extents.z, Instance.bounds.extents.z)
 
             ) + Instance.bounds.center;
@@ -231,7 +232,7 @@ public class EnemyWanderState : EnemyBehaviourState
         }
         else
         {
-            Debug.Log("moving to target pos");
+            //Debug.Log("moving to target pos");
         }
 
         if (Vector3.Distance(Instance.transform.position, Instance.player.position) <= Instance.viewRadius)
@@ -273,10 +274,16 @@ public class EnemyChaseState : EnemyBehaviourState
 
     public override void OnStateEnter()
     {
-        Instance.Agent.isStopped = false;
-        Instance.Agent.speed = chaseSpeed;
-        Instance.Anim.SetBool("isMoving", true);
-        Instance.Anim.SetBool("isChasing", true);
+        if (Instance.Agent != null)
+        {
+            Instance.Agent.isStopped = false;
+            Instance.Agent.speed = chaseSpeed;
+        }
+        if (Instance.Anim != null)
+        {
+            Instance.Anim.SetBool("isMoving", true);
+            Instance.Anim.SetBool("isChasing", true);
+        }
         Instance.AudioSource.PlayOneShot(chaseClip);
         Debug.Log("Entered chase state");
     }
@@ -339,10 +346,13 @@ public class EnemyStunState : EnemyBehaviourState
 
     public override void OnStateExit()
     {
+        if(Instance.Agent != null)
+        {
+            Instance.Anim.SetBool("isStunned", false);
+        }
+        Debug.Log(Instance.name);
         timer = -1;
         stunTime = 3.5F;
-        Instance.Anim.SetBool("isStunned", false);
-        Debug.Log("Exiting the stun state.");
     }
 
     public override void OnStateUpdate()

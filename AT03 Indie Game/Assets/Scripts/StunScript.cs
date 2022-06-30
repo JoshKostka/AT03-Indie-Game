@@ -25,6 +25,7 @@ public class StunScript : MonoBehaviour
                 Debug.DrawRay(transform.position, transform.forward * distance, Color.red, 0.2f);
                 if (hit.collider.TryGetComponent(out IInteractable interaction) == true)
                 {
+                    Debug.Log(hit.collider.name.ToUpper() + " has been interacted with");
                     interaction.Activate();
                 }
             }

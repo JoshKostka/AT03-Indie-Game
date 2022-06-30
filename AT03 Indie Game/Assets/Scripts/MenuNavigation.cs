@@ -97,11 +97,11 @@ public class MenuNavigation : MonoBehaviour
     {
         if(axis < 0)
         {
-            currentButtonIndex++;
+            CurrentButtonIndex++;
         }
         else if(axis > 0)
         {
-            currentButtonIndex--;
+            CurrentButtonIndex--;
         }
         Buttons[currentButtonIndex].Select();
         timer = 0;

@@ -52,7 +52,7 @@ public class PlayerController : MonoBehaviour
     {
         if (isGrounded == true)
         {
-            if(crouching == false)
+            if (crouching == false)
             {
                 if (Input.GetKeyDown(KeyCode.Space) == true)
                 {
@@ -65,17 +65,17 @@ public class PlayerController : MonoBehaviour
                     controller.height = 1;
                 }
             }
-            
+
         }
-        if (crouching == true)
-        {
-            if (Input.GetKeyUp(KeyCode.C) == true)
-            {
-                crouching = false;
-                currentSpeed = speed * crouchSpeedMultiplier;
-                controller.height = 2;
-            }
-        }
+        //if (crouching == true)
+        //{
+        //    if (Input.GetKeyUp(KeyCode.C) == true)
+        //    {
+        //        crouching = false;
+        //        currentSpeed = speed * crouchSpeedMultiplier;
+        //        controller.height = 2;
+        //    }
+        //}
         ApplyMovement();
     }
 
