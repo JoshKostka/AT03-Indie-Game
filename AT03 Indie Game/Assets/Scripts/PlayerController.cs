@@ -6,6 +6,11 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
+    public delegate void PlayerCaughtDelegate();
+
+    public static event PlayerCaughtDelegate CaughtPlayerEvent = delegate { };
+
+
     public float gravity = 3.5f; //gravity force
     public float speed = 2f;    //normal player movement speed
     [Range(0.1f, 1f)]
@@ -93,6 +98,7 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.tag == "Enemy")
         {
+            CaughtPlayerEvent.Invoke();
             Debug.Log("collided with enemy");
             SceneManager.LoadScene("EndGameScene2");
         }

@@ -11,17 +11,21 @@ public class TargetItem : MonoBehaviour, IInteractable
 
     private static bool active = false;
 
-    public static ObjectiveDelegate ObjectiveActivatedEvent = delegate
-    {
-        Debug.Log("Object activated ");
-        ObjectiveActivatedEvent = delegate { };
-    };
+    public static ObjectiveDelegate ObjectiveActivatedEvent = delegate { };
+
 
     // Start is called before the first frame update
     void Start()
     {
         active = false;
         runText.SetActive(false);
+    }
+
+    private void Awake()
+    {
+        ObjectiveActivatedEvent += ResetObjectiveEvent;
+        PlayerController.CaughtPlayerEvent += ResetObjectiveEvent;
+        active = false;
     }
 
     public void Activate()
@@ -38,6 +42,12 @@ public class TargetItem : MonoBehaviour, IInteractable
             ObjectiveActivatedEvent.Invoke();
         }
     }
+
+    public static void ResetObjectiveEvent()
+    {
+        ObjectiveActivatedEvent = delegate { };
+    }
+
     public DialogueUI ui;
     [TextArea]
     public string dialogue;
