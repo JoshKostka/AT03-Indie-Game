@@ -63,12 +63,12 @@ public class PlayerController : MonoBehaviour
                 {
                     velocity = jumpForce;
                 }
-                else if (Input.GetKeyDown(KeyCode.C) == true)
-                {
-                    crouching = true;
-                    currentSpeed = speed * crouchSpeedMultiplier;
-                    controller.height = 1;
-                }
+                //else if (Input.GetKeyDown(KeyCode.C) == true)
+                //{
+                //    crouching = true;
+                //    currentSpeed = speed * crouchSpeedMultiplier;
+                //    controller.height = 1;
+                //}
             }
 
         }
